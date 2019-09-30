@@ -1,5 +1,8 @@
 # Today We Learned Flutter!
 
+[![AUTHOR](https://img.shields.io/badge/author-gmlwo530-blue)](https://github.com/gmlwo530)
+[![LICENSE](https://img.shields.io/github/license/today-we-learned-korea/flutter)](https://github.com/today-we-learned-korea/flutter/blob/master/LICENSE)
+
 ## 📝 Repository 컨벤션
 
 1. 이 컨벤션은 모든 Repository에 적용된다.
