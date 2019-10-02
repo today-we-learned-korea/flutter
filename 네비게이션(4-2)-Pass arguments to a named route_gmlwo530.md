@@ -1,14 +1,12 @@
-# 네비게이션 (4-1)
+# 네비게이션 (4-2)
 
 작성자 : gmlwo530
 
 ## Pass arguments to a named route
 
-- ![네비게이션(2)](./네비게이션(2)-Navigated with named rotues_gmlwo530.md) 글에서 특정 식별자(`/user`와 같은)를 통해서 Navigate 하는 방법을 배웠다. 이 방법과 동시 data를 화면에 넘겨 주는 방법을 알아보겠다.
+- 2가지 방법이 소개 되어 [(4-1)](<https://github.com/today-we-learned-korea/flutter/blob/master/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98(4-2)-Pass%20arguments%20to%20a%20named%20route_gmlwo530.md>)과 (4-2)로 나누었다.
 
-- `ModalRoute.of` 메소드와 `onGenerateRoute()` 함수를 통해서 예제를 진행한다.
-
-- 2가지 방법이 소개 되어 (4-1)과 ![(4-2)](./네비게이션(4-2)-Pass arguments to a named route_gmlwo530.md)로 나누었다.
+- `onGenerateRoute()` 함수를 통해서 예제를 진행한다.
 
 ### 1. Define the arguments you need to pass
 
@@ -23,26 +21,34 @@ class ScreenArguments {
 }
 ```
 
-### 2. Create a widget that extracts the arguments
+### 2. Create a widget
 
 그 다음으로 `ScreenArguments`으로부터 `title`와 `message`를 뽑아내서 보여주는 Widget을 만들자.
-`ScreenArguments`에 접근하기 위해서 `ModalRoute.of()` 메서드를 이 Widget에서 사용한다.
-이 메서드는 현재 route의 `arguments`를 반환한다.
+이 Widget은 `ModalRoute`에서 arguments를 받지 않는다.
+
+`MaterialApp`의 속성인 `onGenerateRoute` 함수로 부터 받아서 constructor parameter로써 arguments를 받는다.
 
 ```dart
-class ExtractArgumentsScreen extends StatelessWidget {
-  static const routeName = '/extractArguments';
+class PassArgumentsScreen extends StatelessWidget {
+  static const routeName = '/passArguments';
+
+  final String title;
+  final String message;
+
+  const PassArgumentsScreen({
+    Key key,
+    @required this.title,
+    @required this.message,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.title),
+        title: Text(title),
       ),
       body: Center(
-        child: Text(args.message),
+        child: Text(message),
       ),
     );
   }
@@ -51,38 +57,30 @@ class ExtractArgumentsScreen extends StatelessWidget {
 
 ### 3. Register the widget in the routes table
 
-`MaterialApp`의 routes를 수정합니다.
+`MaterialApp`의 `onGenerateRoute`를 수정합니다.
 
 ```dart
   MaterialApp(
-    routes : {
-      ExtractArgumentsScreen.routeName = (context) => ExtractArgumentsScreen(),
-    },
+    onGenerateRoute: (settings) {
+        if (settings.name == PassArgumentsScreen.routeName) {
+          // Cast the arguments to the correct type: ScreenArguments.
+          final ScreenArguments args = settings.arguments;
+
+          return MaterialPageRoute(
+            builder: (context) {
+              return PassArgumentsScreen(
+                title: args.title,
+                message: args.message,
+              );
+            },
+          );
+        }
+      },
     ...
   )
 ```
 
-### 4. Navigate to the Widget
-
-`Navigator.pushNamed()`의 arguments 속성에 `ScreenArgument`를 넣어줍니다
-
-```dart
-RaisedButton(
-  child : Text("Navigate to screen that extracts arguments"),
-  onPressed : () {
-    Navigator.pushNamed(
-      context,
-      ExtractArgumentsScreen.routeName,
-      arguments: ScreenArguments(
-        'Extract Arguments Screen',
-        'This message is extracted in the build method.',
-      ),
-    );
-  },
-)
-```
-
-### 5. Complete Code
+### 4. Complete Code
 
 ```dart
 import 'package:flutter/material.dart';
@@ -93,11 +91,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: (settings) {
+        if (settings.name == PassArgumentsScreen.routeName) {
+          final ScreenArguments args = settings.arguments;
+
+          return MaterialPageRoute(
+            builder: (context) {
+              return PassArgumentsScreen(
+                title: args.title,
+                message: args.message,
+              );
+            },
+          );
+        }
+      },
       title: 'Navigation with Arguments',
       home: HomeScreen(),
-      routes: {
-        ExtractArgumentsScreen.routeName = (context) => ExtractArgumentsScreen(),
-      }
     );
   }
 }
@@ -114,11 +123,11 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              child: Text("Navigate to screen that extracts arguments"),
+              child: Text("Navigate to a named that accepts arguments"),
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  ExtractArgumentsScreen.routeName,
+                  PassArgumentsScreen.routeName,
                   arguments: ScreenArguments(
                     'Extract Arguments Screen',
                     'This message is extracted in the build method.',
@@ -133,19 +142,26 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class ExtractArgumentsScreen extends StatelessWidget {
-  static const routeName = '/extractArguments';
+class PassArgumentsScreen extends StatelessWidget {
+  static const routeName = '/passArguments';
+
+  final String title;
+  final String message;
+
+  const PassArgumentsScreen({
+    Key key,
+    @required this.title,
+    @required this.message,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.title),
+        title: Text(title),
       ),
       body: Center(
-        child: Text(args.message),
+        child: Text(message),
       ),
     );
   }

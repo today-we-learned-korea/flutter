@@ -6,9 +6,9 @@
 
 - [네비게이션(2)](<https://github.com/today-we-learned-korea/flutter/blob/master/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98(2)-Navigated%20with%20named%20rotues_gmlwo530.md>) 글에서 특정 식별자(`/user`와 같은)를 통해서 Navigate 하는 방법을 배웠다. 이 방법과 동시 data를 화면에 넘겨 주는 방법을 알아보겠다.
 
-- `ModalRoute.of` 메소드와 `onGenerateRoute()` 함수를 통해서 예제를 진행한다.
+- 2가지 방법이 소개 되어 (4-1)과 [(4-2)](<https://github.com/today-we-learned-korea/flutter/blob/master/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98(4-2)-Pass%20arguments%20to%20a%20named%20route_gmlwo530.md>)로 나누었다.
 
-- 2가지 방법이 소개 되어 (4-1)과 [(4-2)]()로 나누었다.
+- `ModalRoute.of` 메소드를 통해서 예제를 진행한다.
 
 ### 1. Define the arguments you need to pass
 
