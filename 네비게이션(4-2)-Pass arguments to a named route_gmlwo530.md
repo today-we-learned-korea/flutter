@@ -4,11 +4,11 @@
 
 ## Pass arguments to a named route
 
-- [네비게이션(2)](네비게이션(2)-Navigated with named rotues_gmlwo530.md) 글에서 특정 식별자(`/user`와 같은)를 통해서 Navigate 하는 방법을 배웠다. 이 방법과 동시 data를 화면에 넘겨 주는 방법을 알아보겠다.
+- [네비게이션(2)](./네비게이션(2)-Navigated with named rotues_gmlwo530.md) 글에서 특정 식별자(`/user`와 같은)를 통해서 Navigate 하는 방법을 배웠다. 이 방법과 동시 data를 화면에 넘겨 주는 방법을 알아보겠다.
 
 - `ModalRoute.of` 메소드와 `onGenerateRoute()` 함수를 통해서 예제를 진행한다.
 
-- 2가지 방법이 소개 되어 (4-1)과 [(4-2)](네비게이션(4-2)-Pass arguments to a named route_gmlwo530.md)로 나누었다.
+- 2가지 방법이 소개 되어 (4-1)과 [(4-2)](./네비게이션(4-2)-Pass arguments to a named route_gmlwo530.md)로 나누었다.
 
 ### 1. Define the arguments you need to pass
 
