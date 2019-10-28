@@ -33,8 +33,7 @@ class PassArgumentsScreen extends StatelessWidget {
   static const routeName = '/passArguments';
 
   final String title;
-  final String message;
-
+  final String message
   const PassArgumentsScreen({
     Key key,
     @required this.title,
